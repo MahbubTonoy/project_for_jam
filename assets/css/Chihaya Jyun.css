@@ -1,0 +1,7 @@
+@font-face {
+	font-family: 'Chihaya Jyun';
+	src: url(../../assets/fonts/Chihaya-Jyun.woff2) format('woff2'),
+	url(../../assets/fonts/Chihaya-Jyun.woff) format('woff');
+	font-weight: normal;
+	font-style: normal;
+}

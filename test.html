@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+      }
+
+      .box-container-1,
+      .box-container-2 {
+        position: absolute;
+        height: 150px;
+        width: 150px;
+        border: 1px solid #000;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .box {
+        border-radius: 50%;
+      }
+      .box-container-1 {
+        left: 130px;
+        top: 50px;
+      }
+      .box-container-2 {
+        left: 530px;
+        top: 50px;
+      }
+
+      .box {
+        height: 80px;
+        width: 80px;
+        background: darkgreen;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .small-box {
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        background: yellow;
+        transition: all 0.1s linear;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box-container-1">
+      <div class="box1 box"></div>
+    </div>
+
+    <div class="box-container-2">
+      <div class="box2 box"></div>
+    </div>
+
+    <script type="text/javascript">
+      let sensitivity = 60;
+
+      document.querySelector("body").addEventListener("mousemove", (e) => {
+        elementMove(".box1", e);
+        elementMove(".box2", e);
+      });
+
+      function elementMove(elementClass, e) {
+        let element = document.querySelector(elementClass);
+        if (element == undefined) {
+          return;
+        }
+
+        let elementPosX =
+          element.getBoundingClientRect().left + element.offsetWidth / 2;
+        let elementPosY =
+          element.getBoundingClientRect().top + element.offsetHeight / 2;
+
+        let cursorDirectionX = (e.pageX - elementPosX) / (sensitivity / 10);
+        let cursorDirectionY = (e.pageY - elementPosY) / (sensitivity / 10);
+
+        // if (
+        //   cursorDirectionX >
+        //   element.parentElement.offsetWidth / 2 - element.offsetWidth / 2
+        // ) {
+        //   cursorDirectionX =
+        //     element.parentElement.offsetWidth / 2 - element.offsetWidth / 2;
+        // }
+
+        // if (
+        //   cursorDirectionY >
+        //   element.parentElement.offsetHeight / 2 - element.offsetHeight / 2
+        // ) {
+        //   cursorDirectionY =
+        //     element.parentElement.offsetHeight / 2 - element.offsetHeight / 2;
+        // }
+
+        element.style.transform = `translateX(${cursorDirectionX}px) translateY(${cursorDirectionY}px)`;
+      }
+    </script>
+  </body>
+</html>

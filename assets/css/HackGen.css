@@ -1,0 +1,15 @@
+@font-face {
+	font-family: 'HackGen';
+	src: url(../../assets/fonts/HackGen-Regular.woff2) format('woff2'),
+	url(../../assets/fonts/HackGen-Regular.woff) format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HackGen';
+	src: url(../../assets/fonts/HackGen-Bold.woff2) format('woff2'),
+	url(../../assets/fonts/HackGen-Bold.woff) format('woff');
+	font-weight: bold;
+	font-style: normal;
+}

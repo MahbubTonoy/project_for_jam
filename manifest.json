@@ -1,0 +1,1 @@
+{"short_name":"miru","name":"miru","icons":[{"src":"/assets/img/256.png","type":"image/png","sizes":"256x256","purpose":"any maskable"},{"src":"/assets/img/384.png","type":"image/png","sizes":"384x384","purpose":"any maskable"}],"start_url":"index.html","background_color":"rgb(255,255,255)","theme_color":"rgb(255,255,255)","display":"fullscreen"}
