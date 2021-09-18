@@ -3,53 +3,47 @@ let max = 5; //eye blink min and max in second
 let blinkInterval = 100;
 
 
-var finalMin = min; // value will change here
-var finalMax = max; // value will change here
-var finalBlinkInterval = blinkInterval;
+
+
+/**** Do not edit below, ****/
 
 //eye blink interval
-let interval = setInterval(eyeBlink, getRandomArbitrary(finalMin, finalMax));
+let interval = setInterval(eyeBlink, getRandomArbitrary(min, max));
 
+let centerDiv = document.querySelector(".center_div");
 document.querySelector("body").addEventListener("mousemove", (e) => {
   //minimum 20 - less number, more sensitivity;
   let sensitivity = 100;
   let okutiSensitivity = 400;
-  
+
   let windowWidthHalf = window.innerWidth / 2;
   let windowHeightHalf = window.innerHeight / 2;
-  
+
   elementMove(".responsive-position-left", e, sensitivity); //left eye
   elementMove(".responsive-position-right", e, sensitivity); //right eye
   elementMove(".okuti", e, okutiSensitivity); //mouth
-  
+
   elementShrink(".omeme-lash-left", e, "left"); //left eye lash
   elementShrink(".omeme-lash-right", e, "right"); //right eye lash
-  
+
   elementShrink(".okuti-shape-left", e, "left"); //mouth left part
   elementShrink(".okuti-shape-right", e, "right"); //mouth right part
-  
+
   mouth(e); //change mouth position
-  
-  // //increase eye blinking when mouse is center
-  // if (
-  //   e.pageX < windowWidthHalf + 100 &&
-  //   e.pageX > windowWidthHalf - 100 &&
-  //   e.pageY < windowHeightHalf
-  //   ) {
-  //     finalMin = 1;
-  //   finalMax = 1;
-  //   clearInterval(interval);
-  //   interval = setInterval(eyeBlink, getRandomArbitrary(finalMin, finalMax));
-  // } else {
-  //   finalMin = min;
-  //   finalMax = max;
-  //   clearInterval(interval);
-  //   interval = setInterval(eyeBlink, getRandomArbitrary(finalMin, finalMax));
-  // }
+
+
+  // increase eye blinking when mouse is center
+  centerDiv.addEventListener("mouseover", () => {
+      clearInterval(interval);
+      interval = setInterval(eyeBlink, getRandomArbitrary(0.5, 0.5));
+  });
+  centerDiv.addEventListener("mouseleave", () => {
+      clearInterval(interval);
+      interval = setInterval(eyeBlink, getRandomArbitrary(min, max));
+  });
+
+
 });
-
-
-
 
 //elements move (parallax)
 function elementMove(elementClass, e, sensitivity) {
@@ -118,24 +112,18 @@ function mouth(e) {
     "rotateX(" + (elementPosY - e.pageY) / 20 + "deg)";
 }
 
-
-
 //eye blinking functionality
 function eyeBlink() {
   let leftEye = document.querySelector(".omeme-left");
   let rightEye = document.querySelector(".omeme-right");
-  
+
   leftEye.style.borderTop = leftEye.offsetHeight + "px solid #fff";
   rightEye.style.borderTop = rightEye.offsetHeight + "px solid #fff";
   setTimeout(() => {
     leftEye.style.borderTop = "0px solid #fff";
     rightEye.style.borderTop = "0px solid #fff";
-  }, finalBlinkInterval);
+  }, blinkInterval);
 }
-
-
-
-
 
 //random number generator in range
 function getRandomArbitrary(min, max) {
