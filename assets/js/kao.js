@@ -53,7 +53,8 @@ function elementShrink(elementClass, e, side) {
 
   if (side == "left") {
     if (e.pageX < windowWidthHalf) {
-      element.style.borderLeft = Math.abs(cursorDirectionX) + "px solid #fff";
+      element.style.width = Math.abs(cursorDirectionX) + "px solid #fff";
+
     }
   }
   if (side == "right") {
@@ -88,4 +89,29 @@ function mouth(e) {
     mouthContainer.offsetHeight / 2;
   mouthContainer.style.transform =
     "rotateX(" + (elementPosY - e.pageY) / 20 + "deg)";
+}
+
+
+let min = 3, max = 5; //define min anx max time of eye blink in second
+
+setInterval(()=>{
+  let leftEye = document.querySelector(".omeme-left");
+  let rightEye = document.querySelector(".omeme-right");
+
+  leftEye.style.borderTop = leftEye.offsetHeight + "px solid #fff";
+  rightEye.style.borderTop = rightEye.offsetHeight + "px solid #fff";
+  setInterval(()=>{
+    leftEye.style.borderTop = "0px solid #fff";
+    rightEye.style.borderTop = "0px solid #fff";
+  }, 300);
+
+}, getRandomArbitrary(min, max));
+
+
+
+//random number generator in range
+function getRandomArbitrary(min, max) {
+  min *= 1000;
+  max *= 1000;
+  return Math.round(Math.random() * (max - min) + min);
 }

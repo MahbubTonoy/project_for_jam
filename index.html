@@ -107,6 +107,8 @@
                 height: 180px;
                 margin-right: 0%;
                 background: rgb(85, 85, 85);
+                overflow: hidden;
+                transition: border 0.1s ease-in-out;
               "
             >
               <div
@@ -163,6 +165,8 @@
                 width: 180px;
                 height: 180px;
                 background: rgb(85, 85, 85);
+                overflow: hidden;
+                transition: border 0.1s ease-in-out;
               "
             >
               <div
@@ -203,8 +207,7 @@
             ></div>
           </div>
         </div>
-        <div class="okuti-container"
-        style="transform-style: preserve-3d;">
+        <div class="okuti-container" style="transform-style: preserve-3d">
           <div
             class="
               d-flex
@@ -228,7 +231,13 @@
             "
           >
             <div
-              class="d-flex justify-content-center align-items-center square okuti-shape-left"
+              class="
+                d-flex
+                justify-content-center
+                align-items-center
+                square
+                okuti-shape-left
+              "
               style="
                 pointer-events: none;
                 transform-style: preserve-3d;
@@ -239,7 +248,13 @@
               "
             ></div>
             <div
-              class="d-flex justify-content-center align-items-center square okuti-left"
+              class="
+                d-flex
+                justify-content-center
+                align-items-center
+                square
+                okuti-left
+              "
               style="
                 pointer-events: none;
                 transform-style: preserve-3d;
@@ -250,7 +265,13 @@
               "
             ></div>
             <div
-              class="d-flex justify-content-center align-items-center square okuti-center"
+              class="
+                d-flex
+                justify-content-center
+                align-items-center
+                square
+                okuti-center
+              "
               style="
                 pointer-events: none;
                 transform-style: preserve-3d;
@@ -263,7 +284,13 @@
               "
             ></div>
             <div
-              class="d-flex justify-content-center align-items-center square okuti-right"
+              class="
+                d-flex
+                justify-content-center
+                align-items-center
+                square
+                okuti-right
+              "
               style="
                 pointer-events: none;
                 transform-style: preserve-3d;
@@ -273,7 +300,13 @@
               "
             ></div>
             <div
-              class="d-flex justify-content-center align-items-center square okuti-shape-right"
+              class="
+                d-flex
+                justify-content-center
+                align-items-center
+                square
+                okuti-shape-right
+              "
               style="
                 pointer-events: none;
                 transform-style: preserve-3d;
@@ -298,8 +331,6 @@
         max-width: 1800px;
       }
 
-
-
       .left_right_controller {
         position: absolute;
         top: 0;
@@ -319,11 +350,9 @@
       }
 
       .omeme-left,
-        .omeme-right {
-          z-index: 999;
-        }
-
-
+      .omeme-right {
+        z-index: 999;
+      }
 
       @media only screen and (max-width: 1200px) {
         .wrapper-main {
