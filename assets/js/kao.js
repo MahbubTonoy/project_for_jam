@@ -114,14 +114,29 @@ function mouth(e) {
 
 //eye blinking functionality
 function eyeBlink() {
+
+  //eyes
   let leftEye = document.querySelector(".omeme-left");
   let rightEye = document.querySelector(".omeme-right");
 
+  //eyelash
+  let leftEyeLash = document.querySelector(".omeme-lash-left");
+  let rightEyeLash = document.querySelector(".omeme-lash-right");
+
+  
+
   leftEye.style.borderTop = leftEye.offsetHeight + "px solid #fff";
   rightEye.style.borderTop = rightEye.offsetHeight + "px solid #fff";
+  
+  leftEyeLash.style.marginTop = "127px";
+  rightEyeLash.style.marginTop = "127px";
+
   setTimeout(() => {
     leftEye.style.borderTop = "0px solid #fff";
     rightEye.style.borderTop = "0px solid #fff";
+
+    leftEyeLash.style.marginTop = "-131px";
+    rightEyeLash.style.marginTop = "-131px";
   }, blinkInterval);
 }
 
