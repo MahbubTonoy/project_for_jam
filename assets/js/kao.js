@@ -63,6 +63,9 @@ function elementMove(elementClass, e, sensitivity) {
   let cursorDirectionY = (e.pageY - elementPosY) / (elementSensitivity / 10);
 
   element.style.transform = `translateX(${cursorDirectionX}px) translateY(${cursorDirectionY}px)`;
+
+  eyelashLower(e, ".omeme-lash-left");
+  eyelashLower(e, ".omeme-lash-right");
 }
 
 function elementShrink(elementClass, e, side) {
@@ -146,4 +149,18 @@ function getRandomArbitrary(min, max) {
   max *= 1000;
   // console.log(min, max);
   return Math.round(Math.random() * (max - min) + min);
+}
+
+function eyelashLower(e, eyelashClass) {
+  let eyelash = document.querySelector(eyelashClass);
+  let eyelashPosY =
+  eyelash.getBoundingClientRect().top +
+  eyelash.offsetHeight / 2;
+  
+  if(e.pageY < eyelashPosY) {
+    eyelash.style.transform = `translateY(${(eyelashPosY-e.pageY)/20}px)`;
+  }
+   else {
+    eyelash.style.transform = "translateY(0px)";
+  }
 }
