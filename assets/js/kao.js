@@ -45,6 +45,14 @@ document.querySelector("body").addEventListener("mouseleave", () => {
   elementReturnToBase(".responsive-position-right");
   elementReturnToBase(".okuti");
 
+  document.querySelector(".omeme-lash-left").style.borderLeft = "0px";
+  document.querySelector(".omeme-lash-right").style.borderRight = "0px";
+  
+  document.querySelector(".okuti-shape-left").style.borderLeft = "0px";
+  document.querySelector(".okuti-shape-right").style.borderRight = "0px";
+
+
+
   document.querySelector(".omeme-lash-left").style.transform =
     "translateY(0px)";
   document.querySelector(".omeme-lash-right").style.transform =
