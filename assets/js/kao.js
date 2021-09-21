@@ -1,9 +1,11 @@
+//eye blink min and max in second
 let min = 3;
-let max = 5; //eye blink min and max in second
-let blinkInterval = 100;
+let max = 5; 
+let blinkInterval = 100; //in millisecond
 
-
-
+//minimum 20 - less number, more sensitivity;
+let sensitivity = 100;
+let okutiSensitivity = 400;
 
 /**** Do not edit below, ****/
 
@@ -12,37 +14,42 @@ let interval = setInterval(eyeBlink, getRandomArbitrary(min, max));
 
 let centerDiv = document.querySelector(".center_div");
 document.querySelector("body").addEventListener("mousemove", (e) => {
-  //minimum 20 - less number, more sensitivity;
-  let sensitivity = 100;
-  let okutiSensitivity = 400;
 
-  let windowWidthHalf = window.innerWidth / 2;
-  let windowHeightHalf = window.innerHeight / 2;
-
+  //element move function
   elementMove(".responsive-position-left", e, sensitivity); //left eye
   elementMove(".responsive-position-right", e, sensitivity); //right eye
   elementMove(".okuti", e, okutiSensitivity); //mouth
 
+  //eyelash shrink
   elementShrink(".omeme-lash-left", e, "left"); //left eye lash
   elementShrink(".omeme-lash-right", e, "right"); //right eye lash
 
+  //mouth part shrink
   elementShrink(".okuti-shape-left", e, "left"); //mouth left part
   elementShrink(".okuti-shape-right", e, "right"); //mouth right part
 
-  mouth(e); //change mouth position
-
+  mouth(e); //change mouth expression and position
 
   // increase eye blinking when mouse is center
   centerDiv.addEventListener("mouseover", () => {
-      clearInterval(interval);
-      interval = setInterval(eyeBlink, getRandomArbitrary(0.5, 0.5));
+    clearInterval(interval);
+    interval = setInterval(eyeBlink, getRandomArbitrary(0.5, 0.5));
   });
   centerDiv.addEventListener("mouseleave", () => {
-      clearInterval(interval);
-      interval = setInterval(eyeBlink, getRandomArbitrary(min, max));
+    clearInterval(interval);
+    interval = setInterval(eyeBlink, getRandomArbitrary(min, max));
   });
+});
+
+document.querySelector("body").addEventListener("mouseleave", () => {
+  elementReturnToBase(".responsive-position-left");
+  elementReturnToBase(".responsive-position-right");
+  elementReturnToBase(".okuti");
 
 
+
+  document.querySelector(".omeme-lash-left").style.transform = "translateY(0px)";
+  document.querySelector(".omeme-lash-right").style.transform = "translateY(0px)";
 });
 
 //elements move (parallax)
@@ -63,7 +70,11 @@ function elementMove(elementClass, e, sensitivity) {
   let cursorDirectionY = (e.pageY - elementPosY) / (elementSensitivity / 10);
 
   element.style.transform = `translateX(${cursorDirectionX}px) translateY(${cursorDirectionY}px)`;
+  element.setAttribute("data-posX", cursorDirectionX);
+  element.setAttribute("data-posY", cursorDirectionY);
 
+
+  //put eyelash lower when mouse up
   eyelashLower(e, ".omeme-lash-left");
   eyelashLower(e, ".omeme-lash-right");
 }
@@ -117,7 +128,6 @@ function mouth(e) {
 
 //eye blinking functionality
 function eyeBlink() {
-
   //eyes
   let leftEye = document.querySelector(".omeme-left");
   let rightEye = document.querySelector(".omeme-right");
@@ -126,11 +136,9 @@ function eyeBlink() {
   let leftEyeLash = document.querySelector(".omeme-lash-left");
   let rightEyeLash = document.querySelector(".omeme-lash-right");
 
-  
-
   leftEye.style.borderTop = leftEye.offsetHeight + "px solid #fff";
   rightEye.style.borderTop = rightEye.offsetHeight + "px solid #fff";
-  
+
   leftEyeLash.style.marginTop = "127px";
   rightEyeLash.style.marginTop = "127px";
 
@@ -154,13 +162,50 @@ function getRandomArbitrary(min, max) {
 function eyelashLower(e, eyelashClass) {
   let eyelash = document.querySelector(eyelashClass);
   let eyelashPosY =
-  eyelash.getBoundingClientRect().top +
-  eyelash.offsetHeight / 2;
-  
-  if(e.pageY < eyelashPosY) {
-    eyelash.style.transform = `translateY(${(eyelashPosY-e.pageY)/20}px)`;
-  }
-   else {
+    eyelash.getBoundingClientRect().top + eyelash.offsetHeight / 2;
+
+  if (e.pageY < eyelashPosY) {
+    eyelash.style.transform = `translateY(${(eyelashPosY - e.pageY) / 20}px)`;
+  } else {
     eyelash.style.transform = "translateY(0px)";
+  }
+}
+
+function elementReturnToBase(elementClass) {
+  let element = document.querySelector(elementClass);
+
+  // let elementChilds = document.querySelectorAll(elementClass+"> div");
+
+  let elementTransformX = Math.round(element.getAttribute("data-posX"));
+  let elementTransformY = Math.round(element.getAttribute("data-posY"));
+
+  // console.log(elementTransformX/100, elementTransformY/100);
+  
+
+
+
+
+  let elementInterval = setInterval(() => {
+    elementTransformX = returnLessNumber(elementTransformX);
+    elementTransformY = returnLessNumber(elementTransformY);
+
+    element.style.transform = `translateX(${elementTransformX}px) translateY(${elementTransformY}px)`;
+
+    if (elementTransformX == 0 && elementTransformY == 0) {
+      clearInterval(elementInterval);
+    }
+  }, 1);
+}
+
+
+
+function returnLessNumber(number) {
+  if (number < 8 && number > -8) {
+    return 0; 
+  }
+  if (number > 0) {
+    return number - 8;
+  } else {
+    return number + 8;
   }
 }
