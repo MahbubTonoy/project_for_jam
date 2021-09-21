@@ -1,6 +1,6 @@
 //eye blink min and max in second
 let min = 3;
-let max = 5; 
+let max = 5;
 let blinkInterval = 100; //in millisecond
 
 //minimum 20 - less number, more sensitivity;
@@ -14,7 +14,6 @@ let interval = setInterval(eyeBlink, getRandomArbitrary(min, max));
 
 let centerDiv = document.querySelector(".center_div");
 document.querySelector("body").addEventListener("mousemove", (e) => {
-
   //element move function
   elementMove(".responsive-position-left", e, sensitivity); //left eye
   elementMove(".responsive-position-right", e, sensitivity); //right eye
@@ -46,10 +45,13 @@ document.querySelector("body").addEventListener("mouseleave", () => {
   elementReturnToBase(".responsive-position-right");
   elementReturnToBase(".okuti");
 
+  document.querySelector(".omeme-lash-left").style.transform =
+    "translateY(0px)";
+  document.querySelector(".omeme-lash-right").style.transform =
+    "translateY(0px)";
 
-
-  document.querySelector(".omeme-lash-left").style.transform = "translateY(0px)";
-  document.querySelector(".omeme-lash-right").style.transform = "translateY(0px)";
+  document.querySelector(".okuti-left").style.width = 8+"rem";
+  document.querySelector(".okuti-right").style.width = 8+"rem";
 });
 
 //elements move (parallax)
@@ -72,7 +74,6 @@ function elementMove(elementClass, e, sensitivity) {
   element.style.transform = `translateX(${cursorDirectionX}px) translateY(${cursorDirectionY}px)`;
   element.setAttribute("data-posX", cursorDirectionX);
   element.setAttribute("data-posY", cursorDirectionY);
-
 
   //put eyelash lower when mouse up
   eyelashLower(e, ".omeme-lash-left");
@@ -179,15 +180,28 @@ function elementReturnToBase(elementClass) {
   let elementTransformX = Math.round(element.getAttribute("data-posX"));
   let elementTransformY = Math.round(element.getAttribute("data-posY"));
 
-  // console.log(elementTransformX/100, elementTransformY/100);
-  
-
-
-
-
   let elementInterval = setInterval(() => {
-    elementTransformX = returnLessNumber(elementTransformX);
-    elementTransformY = returnLessNumber(elementTransformY);
+    let absElementTransformX = Math.abs(elementTransformX);
+    let absElementTransformY = Math.abs(elementTransformY);
+
+
+
+
+
+    if (absElementTransformX <= absElementTransformY) {
+      elementTransformX = returnLessNumber(elementTransformX, 1);
+      elementTransformY = returnLessNumber(elementTransformY, ((absElementTransformY / absElementTransformX)));
+    } else {
+      elementTransformX = returnLessNumber(elementTransformX, ((absElementTransformX / absElementTransformY)));
+      elementTransformY = returnLessNumber(elementTransformY, 1);
+    }
+
+
+
+
+
+
+    console.log(elementTransformX, elementTransformY);
 
     element.style.transform = `translateX(${elementTransformX}px) translateY(${elementTransformY}px)`;
 
@@ -197,15 +211,14 @@ function elementReturnToBase(elementClass) {
   }, 1);
 }
 
-
-
-function returnLessNumber(number) {
-  if (number < 8 && number > -8) {
-    return 0; 
+function returnLessNumber(number, timestamp) {
+  timestamp *= 3;
+  if (number < timestamp && number > (timestamp * -1)) {
+    return 0;
   }
   if (number > 0) {
-    return number - 8;
+    return number - timestamp;
   } else {
-    return number + 8;
+    return number + timestamp;
   }
 }
